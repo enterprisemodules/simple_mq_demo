@@ -1,0 +1,5 @@
+deployment_zone: vagrant
+
+role: role::mq::standalone
+
+mq_install::software::source_location:  /vagrant/modules/software/files/
