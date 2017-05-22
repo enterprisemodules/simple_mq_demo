@@ -39,6 +39,10 @@ cat > /etc/hosts<< "EOF"
 EOF
 EOD
       case server['type']
+      when 'raw'
+        srv.vm.box = 'puppetlabs/centos-7.2-64-nocm' unless server['box']
+        srv.vm.provision :shell, path: 'vm-scripts/setup_puppet_raw.sh'
+        srv.vm.provision :shell, inline: 'puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp  --verbose --trace'
       when 'masterless'
         srv.vm.box = 'enterprisemodules/centos-7.2-x86_64-puppet' unless server['box']
         srv.vm.provision :shell, path: 'vm-scripts/setup_puppet.sh'
