@@ -1,6 +1,6 @@
 deployment_zone: vagrant
 
-role: role::mq::standalone
+role: role::mq
 
 mq_install::software::source_location:  /vagrant/software
 mq_install::software::version: 9.0.0.0
