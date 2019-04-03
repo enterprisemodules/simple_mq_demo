@@ -26,18 +26,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       hostname = name.split('-').last # First part contains type of node
       srv.vm.hostname = "#{hostname}.example.com"
       srv.vm.network 'private_network', ip: server['public_ip']
-      srv.vm.network 'private_network', ip: server['private_ip'], virtualbox__intnet: true
+      # srv.vm.network 'private_network', ip: server['private_ip'], virtualbox__intnet: true
       srv.vm.synced_folder '.', '/vagrant', type: :virtualbox
       #
       # Fix hostnames because Vagrant mixes it up.
       #
-      srv.vm.provision :shell, inline: <<-EOD
-cat > /etc/hosts<< "EOF"
-127.0.0.1 localhost.localdomain localhost4 localhost4.localdomain4
-192.168.253.10 master.example.com puppet master
+#       srv.vm.provision :shell, inline: <<-EOD
+# cat > /etc/hosts<< "EOF"
+# 127.0.0.1 localhost.localdomain localhost4 localhost4.localdomain4
+# 192.168.253.10 master.example.com puppet master
 #{server['public_ip']} #{hostname}.example.com #{hostname}
-EOF
-EOD
+# EOF
+# EOD
       case server['type']
       when 'raw'
         srv.vm.box = 'puppetlabs/centos-7.2-64-nocm' unless server['box']
@@ -47,6 +47,11 @@ EOD
         srv.vm.box = 'enterprisemodules/centos-7.2-x86_64-puppet' unless server['box']
         srv.vm.provision :shell, path: 'vm-scripts/setup_puppet.sh'
         srv.vm.provision :shell, inline: 'puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp  --verbose --trace'
+      when 'masterless_windows'
+        srv.vm.box = 'mwrock/Windows2012R2' unless server['box']
+        srv.vm.hostname = "#{hostname}"
+        # srv.vm.provision :shell, path: 'vm-scripts/setup_puppet.sh'
+        # srv.vm.provision :shell, inline: 'puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp  --verbose --trace'
       when 'pe-master'
         srv.vm.box = 'puppetlabs/centos-7.2-64-nocm' unless server['box']
         srv.vm.synced_folder '.', '/vagrant', owner: pe_puppet_user_id, group: pe_puppet_group_id

@@ -3,3 +3,8 @@ ml-mq01:
   public_ip: '192.168.253.30'
   cpucount: 2
   type:     masterless
+
+ml-mqwindows:
+  public_ip: '192.168.253.30'
+  cpucount: 2
+  type:     masterless_windows
