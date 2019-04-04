@@ -28,16 +28,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       srv.vm.network 'private_network', ip: server['public_ip']
       # srv.vm.network 'private_network', ip: server['private_ip'], virtualbox__intnet: true
       srv.vm.synced_folder '.', '/vagrant', type: :virtualbox
+
+      if srv.vm.communicator == 'ssh'
       #
       # Fix hostnames because Vagrant mixes it up.
       #
-#       srv.vm.provision :shell, inline: <<-EOD
-# cat > /etc/hosts<< "EOF"
-# 127.0.0.1 localhost.localdomain localhost4 localhost4.localdomain4
-# 192.168.253.10 master.example.com puppet master
+      srv.vm.provision :shell, inline: <<-EOD
+cat > /etc/hosts<< "EOF"
+127.0.0.1 localhost.localdomain localhost4 localhost4.localdomain4
+192.168.253.10 master.example.com puppet master
 #{server['public_ip']} #{hostname}.example.com #{hostname}
-# EOF
-# EOD
+EOF
+EOD
+      end
       case server['type']
       when 'raw'
         srv.vm.box = 'puppetlabs/centos-7.2-64-nocm' unless server['box']
@@ -48,10 +51,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         srv.vm.provision :shell, path: 'vm-scripts/setup_puppet.sh'
         srv.vm.provision :shell, inline: 'puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp  --verbose --trace'
       when 'masterless_windows'
-        srv.vm.box = 'mwrock/Windows2012R2' unless server['box']
+        srv.vm.box = 'peru/windows-server-2016-standard-x64-eval' unless server['box']
         srv.vm.hostname = "#{hostname}"
-        # srv.vm.provision :shell, path: 'vm-scripts/setup_puppet.sh'
-        # srv.vm.provision :shell, inline: 'puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp  --verbose --trace'
+        srv.vm.provision :shell, inline: <<-EOD
+        cd c:\\vagrant\\vm-scripts
+        .\\install_puppet.ps1
+        cd c:\\vagrant\\vm-scripts
+        .\\setup_puppet.ps1
+        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
+        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
+        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' apply c:\\vagrant\\manifests\\site.pp -t"
+        EOD
+        srv.vm.provision :shell, inline: 'puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp  --verbose --trace'
       when 'pe-master'
         srv.vm.box = 'puppetlabs/centos-7.2-64-nocm' unless server['box']
         srv.vm.synced_folder '.', '/vagrant', owner: pe_puppet_user_id, group: pe_puppet_group_id
