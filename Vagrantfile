@@ -62,7 +62,6 @@ EOD
         iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
         iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' apply c:\\vagrant\\manifests\\site.pp -t"
         EOD
-        srv.vm.provision :shell, inline: 'puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp  --verbose --trace'
       when 'pe-master'
         srv.vm.box = 'puppetlabs/centos-7.2-64-nocm' unless server['box']
         srv.vm.synced_folder '.', '/vagrant', owner: pe_puppet_user_id, group: pe_puppet_group_id
