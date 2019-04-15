@@ -16,7 +16,7 @@ Write-Output 'Installing required puppet modules finished.'
 #
 Write-Output "Setting up hiera directories"
 New-Item -Path "C:\ProgramData\PuppetLabs\code\environments\production\hieradata" -ItemType SymbolicLink -Value "c:\Vagrant\hieradata" -Force
-New-Item -Path "C:\ProgramData\PuppetLabs\code\environments\production\hiera.yaml" -ItemType SymbolicLink -Value "c:\Vagrant\hiera.yaml" -Force 
+New-Item -Path "C:\ProgramData\PuppetLabs\code\environments\production\hiera.yaml" -ItemType SymbolicLink -Value "c:\Vagrant\hiera.yaml" -Force
 
 #
 # Configure the puppet path's

@@ -59,7 +59,6 @@ EOD
         cd c:\\vagrant\\vm-scripts
         .\\setup_puppet.ps1
         iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
-        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
         iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' apply c:\\vagrant\\manifests\\site.pp -t"
         EOD
       when 'pe-master'
