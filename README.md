@@ -1,3 +1,4 @@
+[![Enterprise Modules](https://raw.githubusercontent.com/enterprisemodules/public_images/master/banner1.jpg)](https://www.enterprisemodules.com)
 # Demo Puppet implementation
 
 This repo contains a demonstration of a simple MQ installation installation and configuration, useing the Enterprise Modules [mq_install](https://www.enterprisemodules.com/shop/products/ibm-mq-install) and [mq_config](https://www.enterprisemodules.com/shop/products/ibm-mq-config) modules.
