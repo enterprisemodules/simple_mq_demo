@@ -1,14 +1,57 @@
 ---
-ml-mq01:
-  public_ip:        192.168.253.30
-  cpucount:         2
+#
+# The default settings for all nodes
+#
+defaults:
+  domain_name:     example.com
+  cpucount:         1
+  additional_hosts: |
+    127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4
+    192.168.253.10 mqmaster.example.com puppet master
+  box:              enterprisemodules/centos-7.3-x86_64-nocm
+#
+# The default settings for all ML nodes
+#
+ml-defaults:
   type:             masterless
-  virtualboxorafix: true
-  box:              enterprisemodules/ol-7.3-x86_64-nocm
-  # The installer needs to be unpacked in the ./modules/software/files/
-  # directory.
-  puppet_installer: puppet-enterprise-2016.5.1-el-7-x86_64/puppet-enterprise-installer
+#
+# The default settings for all PE nodes
+#
+pe-defaults:
+  type:             pe-agent
+  puppet_master:    mqmaster
+
+#
+# The settings for the Puppet Enterprise Server
+#  
+pe-mqmaster:
+  public_ip:       '192.168.253.10'
+  cpucount:         2
+  ram:              3072
+  type:             pe-master
+  puppet_installer: puppet-enterprise-2019.1.0-el-7-x86_64/puppet-enterprise-installer
+
+#
+# All masterless nodes
+#
+ml-mq900:
+  public_ip:        192.168.253.90
   software_files:
     - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
-  additional_hosts: |
-    192.168.253.10 master.example.com puppet master
+
+ml-mq910:
+  public_ip:        192.168.253.91
+  software_files:
+    - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz
+#
+# All Puppet Agent nodes
+#
+pe-mq900:
+  public_ip:        192.168.253.90
+  software_files:
+    - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
+
+pe-mq910:
+  public_ip:        192.168.253.91
+  software_files:
+    - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz

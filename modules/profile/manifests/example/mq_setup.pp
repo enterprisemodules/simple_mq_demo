@@ -72,7 +72,7 @@ class profile::example::mq_setup()
   # Here is the definition of a Queue  with all possible properties.
   # Most of these are default. Use just the ones you need to be different from defaults
   #
-  -> mq_queue { 'QM1/MY.QUEUE.FIRST':
+  -> mq_queue { 'QM1/QLOCAL/MY.QUEUE.FIRST':
     ensure   => 'present',
     # acctq    => 'QMGR',
     # bothresh => '0',

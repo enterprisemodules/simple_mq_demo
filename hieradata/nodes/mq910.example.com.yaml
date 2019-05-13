@@ -1,0 +1,5 @@
+deployment_zone: vagrant
+
+role: role::mq
+
+mq_install::software::version:  9.1.0.0
