@@ -1,5 +1,14 @@
 ---
 ml-mq01:
-  public_ip: '192.168.253.30'
-  cpucount: 2
-  type:     masterless
+  public_ip:        192.168.253.30
+  cpucount:         2
+  type:             masterless
+  virtualboxorafix: true
+  box:              enterprisemodules/ol-7.3-x86_64-nocm
+  # The installer needs to be unpacked in the ./modules/software/files/
+  # directory.
+  puppet_installer: puppet-enterprise-2016.5.1-el-7-x86_64/puppet-enterprise-installer
+  software_files:
+    - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
+  additional_hosts: |
+    192.168.253.10 master.example.com puppet master
