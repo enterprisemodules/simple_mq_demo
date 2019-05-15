@@ -101,7 +101,7 @@ class profile::example::mq_setup()
     # qdpmaxev => 'ENABLED',
     # qsvciev  => 'NONE',
     # qsvcint  => '999999999',
-    # qtype    => 'QLOCAL',
+    qtype    => 'QLOCAL',
     # retintvl => '999999999',
     # scope    => 'QMGR',
     # statq    => 'QMGR',
