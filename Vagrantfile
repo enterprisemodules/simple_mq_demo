@@ -53,6 +53,11 @@ EOD
       when 'masterless_windows'
         srv.vm.box = 'peru/windows-server-2016-standard-x64-eval' unless server['box']
         srv.vm.hostname = "#{hostname}"
+        config.winrm.ssl_peer_verification = false
+        config.winrm.retry_delay = 60
+        config.winrm.username = 'Administrator'
+        config.winrm.password = 'vagrant'
+        config.winrm.retry_limit = 10
         srv.vm.provision :shell, inline: <<-EOD
         cd c:\\vagrant\\vm-scripts
         .\\install_puppet.ps1
