@@ -7,6 +7,7 @@
 /modules/em_utils
 /modules/filemapper
 /modules/limits
+/modules/transition
 /modules/stdlib
 /modules/swap_file
 /modules/sysctl
