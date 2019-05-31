@@ -55,7 +55,7 @@ EOD
         srv.vm.hostname = "#{hostname}"
         config.winrm.ssl_peer_verification = false
         config.winrm.retry_delay = 60
-        config.winrm.username = 'Administrator'
+        config.winrm.username = 'vagrant'
         config.winrm.password = 'vagrant'
         config.winrm.retry_limit = 10
         srv.vm.provision :shell, inline: <<-EOD
