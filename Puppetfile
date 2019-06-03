@@ -1,8 +1,12 @@
-mod 'puppetlabs-stdlib',             '6.0.0'
-mod 'petems-swap_file',              '4.0.2'
-mod 'saz-timezone',                  '5.1.1'
-mod 'puppet-archive',                '4.0.0'
-mod 'puppetlabs-powershell',         '2.3.0'
+mod 'puppetlabs-stdlib',                    '6.0.0'
+mod 'petems-swap_file',                     '4.0.2'
+mod 'saz-timezone',                         '5.1.1'
+mod 'puppet-archive',                       '4.0.0'
+mod 'puppetlabs-powershell',                '2.3.0'
+mod 'saz-limits',                           '3.0.3'
+mod 'herculesteam-augeasproviders_core',    '2.4.0'
+mod 'herculesteam-augeasproviders_sysctl',  '2.3.1'
+
 #
 # EM modules
 #

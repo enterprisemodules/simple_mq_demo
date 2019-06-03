@@ -19,3 +19,6 @@
 /.tmp
 .DS_Store
 /modules/software/files
+/modules/powershell
+/modules/augeasproviders_sysctl
+/modules/augeasproviders_core

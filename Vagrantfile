@@ -96,7 +96,9 @@ def masterless_setup(config, server, srv, hostname)
         .\\install_puppet.ps1
         cd c:\\vagrant\\vm-scripts
         .\\setup_puppet.ps1
-      EOD
+        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
+        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' apply c:\\vagrant\\manifests\\site.pp -t "
+        EOD
     end
   end
 
