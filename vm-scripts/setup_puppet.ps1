@@ -3,7 +3,7 @@
 #
 Write-Output "Installing required gems..."
 iex "& 'c:\Program Files\Puppet Labs\Puppet\puppet\bin\gem.bat' install r10k"
-Write-Output "Installing required gems finsihed"
+Write-Output "Installing required gems finished"
 
 
 Write-Output 'Installing required puppet modules...'

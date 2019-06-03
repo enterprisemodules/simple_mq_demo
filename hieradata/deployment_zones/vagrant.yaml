@@ -1,10 +1,6 @@
 profile::base::hosts::list:
-  master.example.com:
+  mqmaster.example.com:
     ip: 192.168.253.10
     host_aliases:
       - master
       - puppet
-  db02.example.com:
-    ip: 192.168.253.30
-    host_aliases:
-      - db02
