@@ -97,32 +97,25 @@ def masterless_setup(config, server, srv, hostname)
         cd c:\\vagrant\\vm-scripts
         .\\setup_puppet.ps1
         iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
-        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
-        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' apply c:\\vagrant\\manifests\\site.pp -t"
-      EOD
+        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' apply c:\\vagrant\\manifests\\site.pp -t "
+        EOD
     end
   end
 
   config.trigger.after :provision do |trigger|
     if srv.vm.communicator == 'ssh'
       trigger.run_remote = {
-        inline: "puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp || true"
+        inline: "puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp -t|| true"
       }
+    else
+      trigger.run_remote = {inline: <<~EOD}
+      iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
+      iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' apply c:\\vagrant\\manifests\\site.pp -t "
+      EOD
     end
   end
 end
 
-def masterless_windows_setup(config, server, srv, hostname)
-  srv.vm.hostname = "#{hostname}"
-  srv.vm.provision :shell, inline: <<~EOD
-  cd c:\\vagrant\\vm-scripts
-  .\\install_puppet.ps1
-  cd c:\\vagrant\\vm-scripts
-  .\\setup_puppet.ps1
-  iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
-  iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' apply c:\\vagrant\\manifests\\site.pp -t"
-  EOD
-end
 
 def raw_setup(config, server, srv, hostname)
   config.trigger.after :up do |trigger|
@@ -143,7 +136,6 @@ def raw_setup(config, server, srv, hostname)
       trigger.run_remote = {inline: <<~EOD}
         cd c:\\vagrant\\vm-scripts
         .\\setup_puppet_raw.ps1
-        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
         iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
         iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' apply c:\\vagrant\\manifests\\site.pp -t"
       EOD
@@ -204,6 +196,18 @@ def puppet_agent_setup(config, server, srv, hostname)
         #{server['additional_hosts'] ? server['additional_hosts'] : ''}
         EOF
         curl -k https://#{server['puppet_master']}.#{server['domain_name']}:8140/packages/current/install.bash | sudo bash
+        EOD
+      else
+        trigger.run_remote = {inline: <<~EOD}
+        Copy-Item -Path c:\\vagrant\\vm-scripts\\windows-hosts -Destination c:\\Windows\\System32\\Drivers\\etc\\hosts
+        [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = New-Object System.Net.WebClient; $webClient.DownloadFile('https://#{server['puppet_master']}.#{server['domain_name']}:8140/packages/current/install.ps1', 'install.ps1');.\\install.ps1
+        iex 'puppet resource service puppet ensure=stopped'
+        EOD
+    end
+  end
+  config.trigger.after :provision do |trigger|
+    if srv.vm.communicator == 'ssh'
+      trigger.run_remote = {inline: <<~EOD}
         #
         # The agent installation also automatically start's it. In production, this is what you want. For now we
         # want the first run to be interactive, so we see the output. Therefore, we stop the agent and wait
@@ -216,15 +220,13 @@ def puppet_agent_setup(config, server, srv, hostname)
         #
         systemctl start puppet
         EOD
-      else
-        trigger.run_remote = {inline: <<~EOD}
-        Copy-Item -Path c:\\vagrant\\vm-scripts\\windows-hosts -Destination c:\\Windows\\System32\\Drivers\\etc\\hosts
-        [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = New-Object System.Net.WebClient; $webClient.DownloadFile('https://#{server['puppet_master']}.#{server['domain_name']}:8140/packages/current/install.ps1', 'install.ps1');.\\install.ps1
-        iex 'puppet resource service puppet ensure=stopped'
+    else
+      trigger.run_remote = {inline: <<~EOD}
         iex 'puppet agent -t'
-        EOD
+      EOD
     end
   end
+
 end
 
 # Fix setup for Oracle applications
@@ -398,6 +400,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         srv.vm.hostname = "#{hostname}"
         config.winrm.ssl_peer_verification = false
         config.winrm.retry_delay = 60
+        config.winrm.username = 'Administrator'
+        config.winrm.password = 'vagrant'
         config.winrm.retry_limit = 10
       end
 

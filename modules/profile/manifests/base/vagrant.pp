@@ -2,6 +2,7 @@
 class profile::base::vagrant()
 {
 
+  if $::osfamily == 'RedHat' {
     $required_packages = [
       'bc',
       'mlocate',
@@ -29,5 +30,6 @@ class profile::base::vagrant()
       user    => root,
       unless  => "/bin/grep '^/var/swap.1' /etc/fstab 2>/dev/null",
     }
+  }
 
 }

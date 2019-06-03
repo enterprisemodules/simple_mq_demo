@@ -7,6 +7,7 @@
 /modules/em_utils
 /modules/filemapper
 /modules/limits
+/modules/transition
 /modules/stdlib
 /modules/swap_file
 /modules/sysctl
@@ -18,5 +19,6 @@
 /.tmp
 .DS_Store
 /modules/software/files
+/modules/powershell
 /modules/augeasproviders_sysctl
 /modules/augeasproviders_core

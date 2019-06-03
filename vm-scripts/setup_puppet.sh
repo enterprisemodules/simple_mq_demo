@@ -2,6 +2,7 @@
 # Install R10K. We need this to download the correct set of puppet modules
 #
 echo 'Installing required gems'
+/opt/puppetlabs/puppet/bin/gem install cri --version 2.15.6 --no-rdoc --no-ri > /dev/null # 2>&1
 /opt/puppetlabs/puppet/bin/gem install r10k --no-rdoc --no-ri > /dev/null # 2>&1
 
 echo 'Installing required puppet modules'

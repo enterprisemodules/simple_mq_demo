@@ -9,6 +9,7 @@ defaults:
     127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4
     192.168.253.10 mqmaster.example.com puppet master
   box:              enterprisemodules/centos-7.3-x86_64-nocm
+  virtualboxorafix: enable
 #
 # The default settings for all ML nodes
 #
@@ -34,24 +35,34 @@ pe-mqmaster:
 #
 # All masterless nodes
 #
-ml-mq900:
-  public_ip:        192.168.253.90
-  software_files:
-    - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
-
-ml-mq910:
-  public_ip:        192.168.253.91
+ml-mq01:
+  public_ip:        '192.168.253.30'
   software_files:
     - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz
+
+ml-mqwindows:
+  public_ip:        '192.168.253.31'
+  protocol:         winrm
+  box:              mrlesmithjr/windows2019
+  cpucount:         4
+  ram:              8192
+  software_files:
+    - puppet-agent-6.4.2-x64.msi
+    - IBM_MQ_9.1_WINDOWS_TRIAL.zip
 #
 # All Puppet Agent nodes
 #
-pe-mq900:
-  public_ip:        192.168.253.90
-  software_files:
-    - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
-
-pe-mq910:
-  public_ip:        192.168.253.91
+pe-mq01:
+  public_ip:        '192.168.253.30'
   software_files:
     - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz
+
+pe-mqwindows:
+  public_ip:        '192.168.253.31'
+  protocol:         winrm
+  box:              mrlesmithjr/windows2019
+  cpucount:         4
+  ram:              8192
+  software_files:
+    - IBM_MQ_9.1_WINDOWS_TRIAL.zip
+

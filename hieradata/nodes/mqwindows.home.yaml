@@ -1,0 +1,10 @@
+# deployment_zone: vagrant
+
+role: role::mq
+
+mq_install::software::source_location:  C:\vagrant\software\files
+mq_install::software::version: 9.1.0.0
+mq_install::software::tmp_dir:  C:\tmp
+mq_install::software::windows::owner:  vagrant
+
+# mq_install::software::install_client: true
