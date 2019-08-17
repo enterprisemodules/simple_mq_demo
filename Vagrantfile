@@ -88,7 +88,7 @@ def masterless_setup(config, server, srv, hostname)
         EOF
         bash /vagrant/vm-scripts/install_puppet.sh
         bash /vagrant/vm-scripts/setup_puppet.sh
-        /opt/puppetlabs/puppet/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp || true
+        /opt/puppetlabs/puppet/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp
       EOD
     else # Windows
       trigger.run_remote = {inline: <<~EOD}
@@ -96,9 +96,7 @@ def masterless_setup(config, server, srv, hostname)
         .\\install_puppet.ps1
         cd c:\\vagrant\\vm-scripts
         .\\setup_puppet.ps1
-        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
-        iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' apply c:\\vagrant\\manifests\\site.pp -t "
-        EOD
+      EOD
     end
   end
 
@@ -116,6 +114,19 @@ def masterless_setup(config, server, srv, hostname)
   end
 end
 
+def masterless_windows_setup(config, server, srv, hostname)
+  srv.vm.box = 'peru/windows-server-2016-standard-x64-eval' unless server['box']
+  srv.vm.hostname = "#{hostname}"
+  srv.vm.provision :shell, inline: <<~EOD
+  Set-ExecutionPolicy Bypass -Scope Process -Force
+  cd c:\\vagrant\\vm-scripts
+  .\\install_puppet.ps1
+  cd c:\\vagrant\\vm-scripts
+  .\\setup_puppet.ps1
+  iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' resource service puppet ensure=stopped"
+  iex "& 'C:\\Program Files\\Puppet Labs\\Puppet\\bin\\puppet' apply c:\\vagrant\\manifests\\site.pp -t"
+  EOD
+end
 
 def raw_setup(config, server, srv, hostname)
   config.trigger.after :up do |trigger|
@@ -130,7 +141,7 @@ def raw_setup(config, server, srv, hostname)
         #{server['additional_hosts'] ? server['additional_hosts'] : ''}
         EOF
         bash /vagrant/vm-scripts/setup_puppet_raw.sh
-        /opt/puppetlabs/puppet/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp || true
+        /opt/puppetlabs/puppet/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp
       EOD
     else # Windows
       trigger.run_remote = {inline: <<~EOD}
@@ -145,7 +156,7 @@ def raw_setup(config, server, srv, hostname)
   config.trigger.after :provision do |trigger|
     if srv.vm.communicator == 'ssh'
       trigger.run_remote = {
-        inline: "puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp || true"
+        inline: "puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp"
       }
     end
   end
@@ -177,7 +188,7 @@ def puppet_master_setup(config, srv, server, puppet_installer, pe_puppet_user_id
   # any agents
   #
   srv.vm.provision :shell, inline: 'service pe-puppetserver restart'
-  srv.vm.provision :shell, inline: 'puppet agent -t || true'
+  srv.vm.provision :shell, inline: 'puppet agent -t'
 end
 
 def puppet_agent_setup(config, server, srv, hostname)
@@ -196,6 +207,17 @@ def puppet_agent_setup(config, server, srv, hostname)
         #{server['additional_hosts'] ? server['additional_hosts'] : ''}
         EOF
         curl -k https://#{server['puppet_master']}.#{server['domain_name']}:8140/packages/current/install.bash | sudo bash
+        #
+        # The agent installation also automatically start's it. In production, this is what you want. For now we
+        # want the first run to be interactive, so we see the output. Therefore, we stop the agent and wait
+        # for it to be stopped before we start the interactive run
+        #
+        pkill -9 -f "puppet.*agent.*"
+        /opt/puppetlabs/puppet/bin/puppet agent -t; exit 0
+        #
+        # After the interactive run is done, we restart the agent in a normal way.
+        #
+        systemctl start puppet
         EOD
       else
         trigger.run_remote = {inline: <<~EOD}
@@ -439,9 +461,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
 
       config.vm.provider :virtualbox do |vb|
-        # vb.gui = true
+        vb.gui = true
         vb.cpus = server['cpucount'] || 1
         vb.memory = server['ram'] || 4096
+        # vb.name = name
 
         # Setup config fixes for Oracle product
         virtualboxorafix(vb) if server['virtualboxorafix']
