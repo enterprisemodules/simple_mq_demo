@@ -1,18 +1,25 @@
-mod 'puppetlabs-stdlib',                    '6.0.0'
-mod 'petems-swap_file',                     '4.0.2'
-mod 'saz-timezone',                         '5.1.1'
-mod 'puppet-archive',                       '4.0.0'
-mod 'puppetlabs-powershell',                '2.3.0'
-mod 'saz-limits',                           '3.0.3'
-mod 'herculesteam-augeasproviders_core',    '2.4.0'
-mod 'herculesteam-augeasproviders_sysctl',  '2.3.1'
-
+mod 'puppetlabs-stdlib'
+mod 'puppetlabs-concat'
+mod 'stm-debconf'
+mod 'saz-limits'
+mod 'petems-swap_file'
+mod 'puppet-archive'
+mod 'saz-timezone'
+mod 'ipcrm-echo'
+mod 'herculesteam-augeasproviders_core'
+mod 'herculesteam-augeasproviders_sysctl'
+mod 'camptocamp-systemd'
+mod 'puppetlabs-firewall'
+mod 'crayfishx-firewalld'
+mod 'derdanne-nfs'
+mod 'AlexCline-dirtree'
 #
 # EM modules
 #
-mod 'enterprisemodules-easy_type',   '2.10.4'
-mod 'enterprisemodules-mq_install',  '1.4.0'
-mod 'enterprisemodules-mq_config',   '1.9.0'
+mod 'enterprisemodules-easy_type'
+mod 'enterprisemodules-ibm_profile'
+mod 'enterprisemodules-mq_install'
+mod 'enterprisemodules-mq_config'
 #
 # Local modules
 #

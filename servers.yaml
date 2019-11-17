@@ -37,6 +37,14 @@ ml-mq01:
   software_files:
     - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz
 
+ml-mq01sol:
+  public_ip:        '192.168.253.31'
+  box:              MartijnDwars/solaris11_4
+  ram:              8192
+  software_files:
+  - IBM_MQ_9.1_SOLARIS_X86-64.tar.gz
+  - puppet-agent@6.10.1,5.11-1.i386.tar
+
 ml-mqwindows:
   public_ip:        '192.168.253.31'
   protocol:         winrm

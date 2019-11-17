@@ -3,7 +3,19 @@ deployment_zone: vagrant
 role: role::mq
 
 ibm_profile::mq_machine::software::source_location:   /vagrant/modules/software/files
-ibm_profile::mq_machine::software::version:           9.1.0.0
+ibm_profile::mq_machine::software::version:           9.1.0.1
+mq_install::software::file_name:                      IBM_MQ_9.1_SOLARIS_X86-64.tar.gz
+
+mq_install::software::install_ft:               true
+# mq_install::software::install_man:             true
+# mq_install::software::install_ams:             true
+# mq_install::software::install_client:          true
+# mq_install::software::install_samples:         true
+# mq_install::software::install_gskit:           true
+# mq_install::software::install_amqp:            true
+# mq_install::software::install_web:             true
+# mq_install::software::install_xrserver:        true
+# mq_install::software::install_sdk:             true
 
 ibm_profile::mq_managers:
   QM01: 

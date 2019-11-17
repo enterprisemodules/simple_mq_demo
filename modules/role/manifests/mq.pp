@@ -2,10 +2,8 @@
 class role::mq()
 {
   contain ::profile::base
-  contain ::mq_install::installmq
-  contain ::profile::example::mq_setup
+  contain ::ibm_profile::mq_machine
 
   Class['::profile::base']
-  -> Class['::mq_install::installmq']
-  -> Class['::profile::example::mq_setup']
+  -> Class['::ibm_profile::mq_machine']
 }

@@ -22,3 +22,13 @@
 /modules/powershell
 /modules/augeasproviders_sysctl
 /modules/augeasproviders_core
+/modules/echo
+/modules/ibm_profile
+/modules/jdksolaris
+/modules/sleep
+/modules/debconf
+/modules/dirtree
+/modules/firewall
+/modules/firewalld
+/modules/nfs
+/modules/systemd
