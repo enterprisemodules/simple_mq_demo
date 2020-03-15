@@ -2,13 +2,13 @@
 # Install R10K. We need this to download the correct set of puppet modules
 #
 Write-Output "Installing required gems..."
-Invoke-Expression "& 'c:\Program Files\Puppet Labs\Puppet\puppet\bin\gem.bat' install cri --version 2.15.6 --no-rdoc --no-ri"
-Invoke-Expression "& 'c:\Program Files\Puppet Labs\Puppet\puppet\bin\gem.bat' install r10k --no-rdoc --no-ri"
+iex "& 'c:\Program Files\Puppet Labs\Puppet\puppet\bin\gem.bat' install r10k"
 Write-Output "Installing required gems finished"
 
+
 Write-Output 'Installing required puppet modules...'
-Set-Location c:\vagrant
-Invoke-Expression "& 'c:\Program Files\Puppet Labs\Puppet\puppet\bin\r10k.bat' puppetfile install"
+cd c:\vagrant
+iex "& 'c:\Program Files\Puppet Labs\Puppet\puppet\bin\r10k.bat' puppetfile install"
 Write-Output 'Installing required puppet modules finished.'
 
 #

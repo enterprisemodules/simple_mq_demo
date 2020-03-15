@@ -32,3 +32,4 @@
 /modules/firewalld
 /modules/nfs
 /modules/systemd
+/puppet_version
