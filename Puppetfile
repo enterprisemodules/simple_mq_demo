@@ -17,7 +17,9 @@ mod 'AlexCline-dirtree'
 # EM modules
 #
 mod 'enterprisemodules-easy_type'
-mod 'enterprisemodules-ibm_profile'
+mod 'enterprisemodules-ibm_profile',
+  :git    => 'https://github.com/enterprisemodules/ibm_profile.git',
+  :branch => 'sensitive_passwords'
 mod 'enterprisemodules-mq_install'
 mod 'enterprisemodules-mq_config'
 #
