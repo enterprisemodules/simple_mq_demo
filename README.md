@@ -9,7 +9,15 @@ This demo supports both MQ 9.0 and MQ 9.1. It contains the follwoing nodes
 
 - mq900     (Demo using MQ 9.0)
 - mq910     (Demo using MQ 9.1)
-
+-**Beware**
+-
+-Puppet 6.14.0 contains a bug the fails the installation. This bug will be fixed in the next release of Puppet. Until then please use Puppet version 6.13.0.
+-
+-To use a specific version of Puppet use the next variable:
+-
+```
+-export PUPPET_VERSION=6.13.0
+```
 ## Starting the nodes masterless
 
 All nodes are available to test with Puppet masterless. To do so, add `ml-` for the name when using vagrant:
