@@ -32,12 +32,17 @@ pe-mqmaster:
 #
 # All masterless nodes
 #
-ml-mq01:
+ml-mq90:
+  public_ip:        '192.168.253.30'
+  software_files:
+    - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
+
+ml-mq91:
   public_ip:        '192.168.253.30'
   software_files:
     - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz
 
-ml-mq01sol:
+ml-mq91sol:
   public_ip:        '192.168.253.31'
   box:              MartijnDwars/solaris11_4
   ram:              8192
@@ -57,7 +62,11 @@ ml-mqwindows:
 #
 # All Puppet Agent nodes
 #
-pe-mq01:
+pe-mq90:
+  public_ip:        '192.168.253.30'
+  software_files:
+    - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
+pe-mq91:
   public_ip:        '192.168.253.30'
   software_files:
     - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz
