@@ -1,0 +1,84 @@
+deployment_zone: vagrant
+
+role: role::mq
+
+ibm_profile::mq_machine::software::source_location:   /vagrant/modules/software/files
+ibm_profile::mq_machine::software::version:           9.0.0.0
+
+ibm_profile::mq_managers:
+  QM01:
+    ensure:     present
+    chlauth:    ENABLED
+    chlev:      ENABLED
+    authorev:   ENABLED
+    inhibtev:   ENABLED
+    localev:    ENABLED
+    remoteev:   ENABLED
+    strstpev:   ENABLED
+    chlev:      EXCEPTION
+    sslev:      ENABLED
+    chadev:     ENABLED
+    perfmev:    ENABLED
+    configev:   ENABLED
+    cmdev:      NODISPLAY
+    deadq:      DLQ
+
+ibm_profile::mq_machine::messaging_setup::topic_list:
+  QM01/TOPIC_1:
+    ensure:   present
+    descr:    My own topic
+    topicstr: topic_1
+  QM01/SYSTEM.BROKER.ADMIN.STREAM:
+    ensure: present
+    descr:  Admin stream for queued Pub/Sub interface with changes
+    topicstr: SYSTEM.BROKER.ADMIN.STREAM
+
+ibm_profile::mq_machine::messaging_setup::queue_list:
+  QM01/QUEUE_1:
+    qtype:      QLOCAL
+    maxmsgl:    '10485760'
+    maxdepth:   '10000'
+    put:        ENABLED
+    get:        ENABLED
+    trigdpth:   '1'
+    trigmpri:   '0'
+    trigtype:   'FIRST'
+  QM01/SYSTEM.ADMIN.CONFIG.EVENT:
+    qtype:      QLOCAL
+    custom:     'CAPEXPRY(2592000)'
+    monq:       'OFF'
+    defpsist:   'YES'
+    qdphiev:    DISABLED
+    qdploev:    DISABLED
+    qdpmaxev:   DISABLED
+  QM01/QUEUE_1_ALIAS:
+    qtype:      QALIAS
+    defpsist:   'NO'
+    target:     QUEUE_1
+    get:        DISABLED
+    put:        ENABLED
+  QM01/REMOTE_QUEUE:
+    qtype:      QREMOTE
+    defpsist:   'NO'
+    rname:      REMOTE_QUEUE
+    rqmname:    QSPA
+    xmitq:      QSPA
+
+ibm_profile::mq_machine::messaging_setup::channel_list:
+  QM01/CHANNEL_1:
+    chltype:    SVRCONN
+    trptype:    TCP
+    mcauser :   'my_user'
+  QM01/ADMIN:
+    chltype:    SVRCONN
+    trptype:    TCP
+    mcauser :   'my_user'
+
+
+ibm_profile::mq_machine::authorization_setup::authorization_list:
+  group/mqm->QM01/topic/TOPIC_1:
+    ensure:     present
+    authority:  ['dlt', 'chg', 'dsp', 'clr', 'ctrl']
+  group/mqm->QM01/queue/QUEUE_1:
+    ensure:     present
+    authority:  ['dlt', 'chg', 'dsp', 'clr']

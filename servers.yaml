@@ -32,6 +32,11 @@ pe-mqmaster:
 #
 # All masterless nodes
 #
+ml-mq00:
+  public_ip:        '192.168.253.30'
+  software_files:
+    - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
+
 ml-mq01:
   public_ip:        '192.168.253.30'
   software_files:
@@ -57,6 +62,10 @@ ml-mqwindows:
 #
 # All Puppet Agent nodes
 #
+pe-mq00:
+  public_ip:        '192.168.253.30'
+  software_files:
+    - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
 pe-mq01:
   public_ip:        '192.168.253.30'
   software_files:

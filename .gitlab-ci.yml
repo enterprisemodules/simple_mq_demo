@@ -13,7 +13,13 @@ mq01_demo_check:
   before_script:
     - mkdir -p modules/software/files
     - cp ~/software/IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz modules/software/files
-
+mq00_demo_check:
+  extends: .demo_check
+  variables:
+    server: ml-mq00
+  before_script:
+    - mkdir -p modules/software/files
+    - cp ~/software/IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz modules/software/files
 # mqwindows_demo_check:
 #   extends: .demo_check
 #   variables:
@@ -22,5 +28,3 @@ mq01_demo_check:
 #     - mkdir -p modules/software/files
 #     - cp ~/software/puppet-agent-6.4.2-x64.msi modules/software/files
 #     - cp ~/software/IBM_MQ_9.1_WINDOWS_TRIAL.zip modules/software/files
-
-    
