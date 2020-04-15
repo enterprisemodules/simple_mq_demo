@@ -7,9 +7,10 @@ This is the mininal approach. We also have the [ibm_profile module](https://forg
 
 This demo supports both MQ 9.0 and MQ 9.1. It contains the follwoing nodes
 
-- mq00      (Demo using MQ 9.0)
-- mq01      (Demo using MQ 9.1)
-- mqwindows (Windows demo using MQ 9.1)
+- mq90            (Demo using MQ 9.0)
+- mq91            (Demo using MQ 9.1)
+- ml-mq91sol      (Solaris demo using MQ 9.1)
+- mqwindows       (Windows demo using MQ 9.1)
 -**Beware**
 -
 -Puppet 6.14.0 contains a bug the fails the installation. This bug will be fixed in the next release of Puppet. Until then please use Puppet version 6.13.0.
@@ -24,7 +25,7 @@ This demo supports both MQ 9.0 and MQ 9.1. It contains the follwoing nodes
 All nodes are available to test with Puppet masterless. To do so, add `ml-` for the name when using vagrant:
 
 ```
-$ vagrant up ml-mq01|ml-mq00
+$ vagrant up ml-mq90|ml-mq91|mqwindows
 ```
 
 
