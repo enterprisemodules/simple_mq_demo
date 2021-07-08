@@ -6,6 +6,13 @@ include:
   - project: 'enterprisemodules/gitlab_ci'
     file: 'gitlab-ci.yml'
 
+mq92_demo_check:
+  extends: .demo_check
+  variables:
+    server: ml-mq92
+  before_script:
+    - mkdir -p modules/software/files
+    - cp ~/software/IBM_MQ_9.2.0_LINUX_X86-64.tar.gz modules/software/files
 mq91_demo_check:
   extends: .demo_check
   variables:

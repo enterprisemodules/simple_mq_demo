@@ -27,7 +27,7 @@ pe-mqmaster:
   cpucount:         2
   ram:              3072
   type:             pe-master
-  puppet_installer: puppet-enterprise-2021.1.0-el-8-x86_64/puppet-enterprise-installer
+  puppet_installer: puppet-enterprise-2019.5.0-el-8-x86_64/puppet-enterprise-installer
 
 #
 # All masterless nodes
@@ -42,8 +42,13 @@ ml-mq91:
   software_files:
     - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz
 
-ml-mq91sol:
+ml-mq92:
   public_ip:        '192.168.253.31'
+  software_files:
+    - IBM_MQ_9.2.0_LINUX_X86-64.tar.gz
+
+ml-mq91sol:
+  public_ip:        '192.168.253.32'
   box:              MartijnDwars/solaris11_4
   ram:              8192
   software_files:
