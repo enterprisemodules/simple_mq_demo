@@ -5,6 +5,7 @@
 defaults:
   domain_name:     example.com
   cpucount:         1
+  ram:              6144
   box:              enterprisemodules/centos-8.1-x86_64-nocm
   virtualboxorafix: enable
 #
@@ -41,6 +42,8 @@ ml-mq91:
   public_ip:        '192.168.253.30'
   software_files:
     - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz
+    - 9.1.0-IBM-MQ-LinuxX64-FP0007.tar.gz
+    - 9.1.0-IBM-MQ-LinuxX64-FP0008.tar.gz
 
 ml-mq92:
   public_ip:        '192.168.253.31'
@@ -53,7 +56,9 @@ ml-mq91sol:
   ram:              8192
   software_files:
   - IBM_MQ_9.1_SOLARIS_X86-64.tar.gz
-  - puppet-agent@6.10.1,5.11-1.i386.tar
+  - puppet-agent@7.8.0,5.11-1.i386.p5p
+  - 9.1.0-IBM-MQ-SolarisX64-FP0007.tar.Z
+  - 9.1.0-IBM-MQ-SolarisX64-FP0008.tar.Z
 
 ml-mqwindows:
   public_ip:        '192.168.253.31'
@@ -71,10 +76,13 @@ pe-mq90:
   public_ip:        '192.168.253.30'
   software_files:
     - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
+
 pe-mq91:
   public_ip:        '192.168.253.30'
   software_files:
     - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz
+    - 9.1.0-IBM-MQ-LinuxX64-FP0007.tar.gz
+    - 9.1.0-IBM-MQ-LinuxX64-FP0008.tar.gz
 
 pe-mqwindows:
   public_ip:        '192.168.253.31'

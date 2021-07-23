@@ -4,6 +4,18 @@ role: role::mq
 
 ibm_profile::mq_machine::software::source_location:   /vagrant/modules/software/files
 ibm_profile::mq_machine::software::version:           9.1.0.0
+ibm_profile::mq_machine::fixpack::version:            9.1.0.7
+
+# ibm_profile::mq_machine::software::version:           9.2.0.0
+# mq_install::software::file_name:                      IBM_MQ_9.2.0_LINUX_X86-64.tar.gz
+#
+# For the mq_install plans
+#
+mq_install::software::version:                        "%{lookup('ibm_profile::mq_machine::software::version')}"
+mq_install::fixpack::version:                         "%{lookup('ibm_profile::mq_machine::fixpack::version')}"
+mq_install::software::source_location:                "%{lookup('ibm_profile::mq_machine::software::source_location')}"
+mq_install::fixpack::source_location:                 "%{lookup('ibm_profile::mq_machine::software::source_location')}"
+
 
 ibm_profile::mq_managers:
   QM01: 

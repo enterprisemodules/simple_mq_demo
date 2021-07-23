@@ -20,6 +20,20 @@ mq91_demo_check:
   before_script:
     - mkdir -p modules/software/files
     - cp ~/software/IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz modules/software/files
+    - cp ~/software/9.1.0-IBM-MQ-LinuxX64-FP0007.tar.gz modules/software/files
+    - cp ~/software/9.1.0-IBM-MQ-LinuxX64-FP0008.tar.gz modules/software/files
+
+mq91sol_demo_check:
+  extends: .demo_check
+  variables:
+    server: ml-mq91sol
+  before_script:
+    - mkdir -p modules/software/files
+    - cp ~/software/Solaris/IBM_MQ_9.1_SOLARIS_X86-64.tar.gz modules/software/files
+    - cp ~/software/Solaris/puppet-agent@7.8.0,5.11-1.i386.p5p modules/software/files
+    - cp ~/software/Solaris/9.1.0-IBM-MQ-SolarisX64-FP0007.tar.Z modules/software/files
+    - cp ~/software/Solaris/9.1.0-IBM-MQ-SolarisX64-FP0008.tar.Z modules/software/files
+
 mq90_demo_check:
   extends: .demo_check
   variables:
