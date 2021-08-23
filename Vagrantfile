@@ -451,6 +451,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.auto_nat_dns_proxy = false
         vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
         vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+        vb.customize ["modifyvm", :id, "--audio", "none"]
 
         # Setup config fixes for Oracle product
         virtualboxorafix(vb) if server['virtualboxorafix']
