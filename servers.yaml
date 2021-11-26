@@ -24,7 +24,7 @@ pe-defaults:
 # The settings for the Puppet Enterprise Server
 #
 pe-mqmaster:
-  public_ip:       '192.168.253.10'
+  public_ip:       '192.168.56.10'
   cpucount:         2
   ram:              3072
   type:             pe-master
@@ -34,24 +34,24 @@ pe-mqmaster:
 # All masterless nodes
 #
 ml-mq90:
-  public_ip:        '192.168.253.30'
+  public_ip:        '192.168.56.30'
   software_files:
     - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
 
 ml-mq91:
-  public_ip:        '192.168.253.30'
+  public_ip:        '192.168.56.30'
   software_files:
     - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz
     - 9.1.0-IBM-MQ-LinuxX64-FP0007.tar.gz
     - 9.1.0-IBM-MQ-LinuxX64-FP0008.tar.gz
 
 ml-mq92:
-  public_ip:        '192.168.253.31'
+  public_ip:        '192.168.56.31'
   software_files:
     - IBM_MQ_9.2.0_LINUX_X86-64.tar.gz
 
 ml-mq91sol:
-  public_ip:        '192.168.253.32'
+  public_ip:        '192.168.56.32'
   box:              MartijnDwars/solaris11_4
   ram:              8192
   software_files:
@@ -61,7 +61,7 @@ ml-mq91sol:
   - 9.1.0-IBM-MQ-SolarisX64-FP0008.tar.Z
 
 ml-mqwindows:
-  public_ip:        '192.168.253.31'
+  public_ip:        '192.168.56.31'
   protocol:         winrm
   box:              mrlesmithjr/windows2019
   cpucount:         4
@@ -73,19 +73,19 @@ ml-mqwindows:
 # All Puppet Agent nodes
 #
 pe-mq90:
-  public_ip:        '192.168.253.30'
+  public_ip:        '192.168.56.30'
   software_files:
     - IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz
 
 pe-mq91:
-  public_ip:        '192.168.253.30'
+  public_ip:        '192.168.56.30'
   software_files:
     - IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz
     - 9.1.0-IBM-MQ-LinuxX64-FP0007.tar.gz
     - 9.1.0-IBM-MQ-LinuxX64-FP0008.tar.gz
 
 pe-mqwindows:
-  public_ip:        '192.168.253.31'
+  public_ip:        '192.168.56.31'
   protocol:         winrm
   box:              mrlesmithjr/windows2019
   cpucount:         4
