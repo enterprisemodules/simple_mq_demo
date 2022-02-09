@@ -10,7 +10,7 @@ mod 'herculesteam-augeasproviders_core'
 mod 'herculesteam-augeasproviders_sysctl'
 mod 'puppet-systemd'
 mod 'puppetlabs-firewall'
-mod 'crayfishx-firewalld'
+mod 'puppet-firewalld'
 mod 'derdanne-nfs'
 mod 'AlexCline-dirtree'
 #
