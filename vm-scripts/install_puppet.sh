@@ -13,8 +13,12 @@ else
   echo "Installing $PACKAGE"
   unamestr=`uname`
   if [[ "$unamestr" == 'Linux' ]]; then
-    rhel=$(awk -F'[ .]' 'NF==8{print $6} NF==9{print $7}' /etc/redhat-release)
-    yum install -y --nogpgcheck https://yum.puppetlabs.com/puppet7/puppet7-release-el-${rhel}.noarch.rpm > /dev/null
+    rhel=$(grep '^VERSION_ID' /etc/os-release | awk -F'[=."]' '{ print $3}')
+    if [ "$rhel" -eq "9" ]; then
+      cp /vagrant/vm-scripts/puppet7.repo /etc/yum.repos.d/
+    else
+      yum install -y --nogpgcheck https://yum.puppetlabs.com/puppet7/puppet7-release-el-${rhel}.noarch.rpm > /dev/null
+    fi
     yum install -y --nogpgcheck $PACKAGE
     rpm -q git || yum install -y --nogpgcheck git
   elif [[ "$unamestr" == 'SunOS' ]]; then
