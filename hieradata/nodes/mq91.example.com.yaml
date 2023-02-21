@@ -15,7 +15,7 @@ mq_install::software::version:                        "%{lookup('ibm_profile::mq
 mq_install::fixpack::version:                         "%{lookup('ibm_profile::mq_machine::fixpack::version')}"
 mq_install::software::source_location:                "%{lookup('ibm_profile::mq_machine::software::source_location')}"
 mq_install::fixpack::source_location:                 "%{lookup('ibm_profile::mq_machine::software::source_location')}"
-
+ibm_profile::mq_machine::software::install_gskit:     true
 
 ibm_profile::mq_managers:
   QM01: 
