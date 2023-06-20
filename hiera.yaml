@@ -8,8 +8,8 @@ hierarchy:
   - name: "Per-node data"                   # Human-readable name.
     paths: 
       - "nodes/%{trusted.certname}.yaml"  # File path, relative to datadir.
-      - "nodes/%{fqdn}.yaml"              # File path, relative to datadir.
-      - "nodes/%{hostname}.yaml"          # Mainly for the windows nodes
+      - "nodes/%{networking.fqdn}.yaml"              # File path, relative to datadir.
+      - "nodes/%{networking.hostname}.yaml"          # Mainly for the windows nodes
 
   - name: "Deployment Zone" # Uses custom facts.
     path: "deployment_zones/%{::deployment_zone}.yaml"

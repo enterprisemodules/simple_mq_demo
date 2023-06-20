@@ -2,7 +2,7 @@
 class profile::base::vagrant()
 {
 
-  if $::osfamily == 'RedHat' {
+  if $facts['os']['family'] == 'RedHat' {
     $required_packages = [
       'bc',
       'mlocate',
