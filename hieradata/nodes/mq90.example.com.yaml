@@ -2,7 +2,6 @@ deployment_zone: vagrant
 
 role: role::mq
 
-ibm_profile::mq_machine::software::source_location:   /vagrant/modules/software/files
 ibm_profile::mq_machine::software::version:           9.0.0.0
 
 ibm_profile::mq_managers:

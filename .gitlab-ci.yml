@@ -10,18 +10,10 @@ mq92_demo_check:
   extends: .demo_check
   variables:
     server: ml-mq92
-  before_script:
-    - mkdir -p modules/software/files
-    - cp ~/software/IBM_MQ_9.2.0_LINUX_X86-64.tar.gz modules/software/files
 mq91_demo_check:
   extends: .demo_check
   variables:
     server: ml-mq91
-  before_script:
-    - mkdir -p modules/software/files
-    - cp ~/software/IBM_MQ_9.1.0.0_LINUX_X86-64.tar.gz modules/software/files
-    - cp ~/software/9.1.0-IBM-MQ-LinuxX64-FP0007.tar.gz modules/software/files
-    - cp ~/software/9.1.0-IBM-MQ-LinuxX64-FP0008.tar.gz modules/software/files
 
 # mq91sol_demo_check:
 #   extends: .demo_check
@@ -38,9 +30,6 @@ mq90_demo_check:
   extends: .demo_check
   variables:
     server: ml-mq90
-  before_script:
-    - mkdir -p modules/software/files
-    - cp ~/software/IBM_MQ_9.0.0.0_LINUX_X86-64.tar.gz modules/software/files
 # mqwindows_demo_check:
 #   extends: .demo_check
 #   variables:

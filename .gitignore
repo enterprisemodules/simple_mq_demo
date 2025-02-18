@@ -33,3 +33,4 @@
 /modules/nfs
 /modules/systemd
 /puppet_version
+/windows_hosts_file.pp
